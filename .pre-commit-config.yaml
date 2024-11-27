@@ -3,5 +3,5 @@ repos:
     rev: v4.0.0  # Use the latest version
     hooks:
       - id: commitizen
-        args: ["check"]  # Enforces conventional commit format
+        args: ["--commit-msg-file"]
         stages: [commit-msg]  # Validates at the commit-msg stage
