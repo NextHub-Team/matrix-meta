@@ -1,0 +1,7 @@
+repos:
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.0.0  # Use the latest version
+    hooks:
+      - id: commitizen
+        args: ["check"]  # Enforces conventional commit format
+        stages: [commit-msg]  # Validates at the commit-msg stage
