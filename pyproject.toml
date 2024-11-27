@@ -20,18 +20,21 @@ djangorestframework = "^3.15.2"
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 
+
+[tool.commitizen]
+name = "cz_conventional_commits"
+tag_format = "$version"
+version_scheme = "pep440"
+version_provider = "poetry"
+update_changelog_on_bump = true
+
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
 scripts = "scripts:main"
-
-[tool.cz]
-name = "cz_conventional_commits"
-version = "0.0.1"  # Replace with your project's current version
-tag_format = "v{version}"  # Tag format
-changelog_file = "CHANGELOG.md"  # Define the changelog file path
 
 
 [tool.poetry-dynamic-versioning]
