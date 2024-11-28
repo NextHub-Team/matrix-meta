@@ -5,6 +5,9 @@ description = "Matrix-Meta is a suite of services designed to integrate the Matr
 authors = ["amirtaherkhani <amirtaherkhani@outlook.com>", "parhamya1 <parham.ya1@gmail.com>"]
 license = "GPL-3.0"
 readme = "README.md"
+package-mode = false
+
+
 
 [tool.poetry.dependencies]
 python = "^3.10"
@@ -16,11 +19,14 @@ dynaconf = {extras = ["django"], version = "^3.2.6"}
 djangorestframework = "^3.15.2"
 wrapt = "^1.17.0"
 classy-decorators = "^1.2.0"
+rich = "^13.9.4"
 
 
 [tool.poetry.group.dev.dependencies]
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
+pylint = "^3.3.1"
+pylint-django = "^2.6.1"
 
 
 [tool.commitizen]
@@ -36,7 +42,8 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.poetry.scripts]
-scripts = "scripts:main"
+scripts = "main:app"
+
 
 
 [tool.poetry-dynamic-versioning]
