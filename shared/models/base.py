@@ -2,7 +2,9 @@ from django.apps import AppConfig
 
 
 class BaseAppConfig(AppConfig):
-    """_summary_
-    The `BaseAppConfig` class is used to set the name attribute based on the current module's name.
     """
+    A base configuration class that sets the name attribute dynamically
+    and overrides global `print` behavior based on the DEBUG setting.
+    """
+
     name = ".".join(__name__.split(".")[:-1])
