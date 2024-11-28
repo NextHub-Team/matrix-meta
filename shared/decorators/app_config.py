@@ -25,7 +25,7 @@ def appconfig_decorator(decorator):
     """
 
     @wrapt.decorator
-    def wrapper(wrapped, instance, args, kwargs):
+    def wrapper(wrapped, instance, args, kwargs):  # pylint: disable=W0613
         return decorator(wrapped)
 
     return wrapper

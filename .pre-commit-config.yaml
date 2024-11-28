@@ -1,3 +1,4 @@
+
 repos:
   - repo: https://github.com/commitizen-tools/commitizen
     rev: v4.0.0  # Use the latest version
@@ -7,8 +8,11 @@ repos:
         stages: [commit-msg]  # Validates at the commit-msg stage
 
   - repo: https://github.com/pre-commit/mirrors-pylint
-    rev: v3.0.0a5  # Use a valid version (check the latest release)
+    rev: v3.0.0a5
     hooks:
       - id: pylint
-        args: [--rcfile=.pylintrc]
+        entry: poetry run pylint
+        language: system
+        args: ["--rcfile=.pylintrc", "--load-plugins=pylint_django", "."]
 
+    
