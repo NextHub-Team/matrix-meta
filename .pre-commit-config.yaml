@@ -14,5 +14,9 @@ repos:
         entry: poetry run pylint
         language: system
         args: ["--rcfile=.pylintrc", "--load-plugins=pylint_django", "."]
+        pass_filenames: false
+        always_run: true
+        fail_fast: true
+
 
     
