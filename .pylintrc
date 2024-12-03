@@ -30,6 +30,7 @@ disable=raw-checker-failed,
         too-few-public-methods,
         fixme,
         missing-module-docstring,
+        unnecessary-lambda,
 
 
 
