@@ -1,22 +1,28 @@
-version: '3.9'
-
 services:
-
   postgres:
     image: postgres:latest
-    hostname: localhost  
-    container_name: postgres_container
+    hostname: postgres-server  
+    container_name: postgres-matrix
     restart: always
     environment:
-      POSTGRES_USER: django_user  
-      POSTGRES_PASSWORD: django_password  
-      POSTGRES_DB: django_db  
+      POSTGRES_USER: matrix  
+      POSTGRES_PASSWORD: 1JRwR35N6rHbpms7  
+      POSTGRES_DB: matrix-meta  
     ports:
       - "5432:5432"  
+    networks:
+      - network-matrix
 
   redis:
+    image: redis:latest
     hostname: redis-server
     container_name: redis-chat
-    image: redis:latest
     ports:
       - "6379:6379"
+    networks:
+      - network-matrix
+
+networks:
+  network-matrix:
+    name: network-matrix  # Custom name for the network
+    driver: bridge
