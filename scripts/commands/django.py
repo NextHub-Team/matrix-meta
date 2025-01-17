@@ -4,7 +4,7 @@ import typer
 # Create the main Typer app
 app = typer.Typer(
     help=(
-        "🚀 Run Django management commands conveniently with Poetry \n\n"
+        "Run Django management commands conveniently with Poetry \n\n"
         "This CLI helps you manage your Django project with grouped commands "
         "for basic operations, database management, testing, user management, "
         "and more!"
@@ -14,16 +14,16 @@ app = typer.Typer(
 
 # Sub-apps for grouped commands
 basic_app = typer.Typer(
-    help="🏗️ Basic Django commands like run server, create an app and etc"
+    help=" Basic Django commands like run server, create an app and etc"
 )
 database_app = typer.Typer(
-    help="🗄️ Database management commands for migrations and SQL tasks."
+    help="Database management commands for migrations and SQL tasks."
 )
-testing_app = typer.Typer(help="🐞 Testing and debugging commands.")
+testing_app = typer.Typer(help=" Testing and debugging commands.")
 user_management_app = typer.Typer(
-    help="👤 User management commands for superuser and passwords."
+    help=" User management commands for superuser and passwords."
 )
-static_files_app = typer.Typer(help="📂 Static files and media commands.")
+static_files_app = typer.Typer(help=" Static files and media commands.")
 misc_app = typer.Typer(help="🔧 Miscellaneous Django commands for advanced usage.")
 
 
@@ -56,7 +56,7 @@ def execute_command(command: str, args: list = None):
 @basic_app.command()
 def startproject(projectname: str):
     """
-    🏗️ **Create a new Django project.**
+    **Create a new Django project.**
 
     This command initializes a new Django project with the given name.
     """
@@ -66,7 +66,7 @@ def startproject(projectname: str):
 @basic_app.command()
 def startapp(appname: str):
     """
-    📦 **Create a new Django app within a project.**
+     **Create a new Django app within a project.**
 
     Provide the name of the app as an argument.
     """
@@ -76,7 +76,7 @@ def startapp(appname: str):
 @basic_app.command()
 def runserver(port: int = 8000):
     """
-    🌐 **Start the development server.**
+    **Start the development server.**
 
     Default port is 8000. Pass a custom port if needed.
     """
@@ -97,7 +97,7 @@ def check():
 @database_app.command()
 def migrate():
     """
-    🗄️ **Apply migrations to the database.**
+     **Apply migrations to the database.**
     """
     execute_command("migrate")
 
@@ -105,7 +105,7 @@ def migrate():
 @database_app.command()
 def makemigrations(appname: str = typer.Argument(None)):
     """
-    📜 **Create migration files for changes in models.**
+     **Create migration files for changes in models.**
 
     Specify the app name to create migrations for a specific app or leave it blank for all apps.
     """
@@ -116,7 +116,7 @@ def makemigrations(appname: str = typer.Argument(None)):
 @database_app.command()
 def sqlmigrate(appname: str, migrationname: str):
     """
-    🛠️ **Show the SQL commands for a migration.**
+    **Show the SQL commands for a migration.**
     """
     execute_command("sqlmigrate", [appname, migrationname])
 
@@ -124,7 +124,7 @@ def sqlmigrate(appname: str, migrationname: str):
 @database_app.command()
 def dbshell():
     """
-    🔑 **Open the database shell.**
+    **Open the database shell.**
     """
     execute_command("dbshell")
 
@@ -133,7 +133,7 @@ def dbshell():
 @testing_app.command()
 def test(appname: str = typer.Argument(None)):
     """
-    🐞 **Run tests for the app.**
+     **Run tests for the app.**
 
     Specify the app name to test or leave it blank to test all apps.
     """
@@ -144,7 +144,7 @@ def test(appname: str = typer.Argument(None)):
 @testing_app.command()
 def testserver(fixture: str):
     """
-    🧪 **Run the development server with initial data from fixtures.**
+    **Run the development server with initial data from fixtures.**
     """
     execute_command("testserver", [fixture])
 
@@ -153,7 +153,7 @@ def testserver(fixture: str):
 @user_management_app.command()
 def createsuperuser():
     """
-    👤 **Create a superuser for the admin interface.**
+    **Create a superuser for the admin interface.**
     """
     execute_command("createsuperuser")
 
@@ -161,7 +161,7 @@ def createsuperuser():
 @user_management_app.command()
 def changepassword(username: str):
     """
-    🔑 **Change the password for a user.**
+     **Change the password for a user.**
     """
     execute_command("changepassword", [username])
 
@@ -170,7 +170,7 @@ def changepassword(username: str):
 @static_files_app.command()
 def collectstatic():
     """
-    📂 **Collect all static files into the STATIC_ROOT.**
+    **Collect all static files into the STATIC_ROOT.**
     """
     execute_command("collectstatic")
 
@@ -178,7 +178,7 @@ def collectstatic():
 @static_files_app.command()
 def findstatic(filename: str):
     """
-    🔍 **Locate a static file in your STATICFILES_DIRS.**
+     **Locate a static file in your STATICFILES_DIRS.**
     """
     execute_command("findstatic", [filename])
 
@@ -187,7 +187,7 @@ def findstatic(filename: str):
 @misc_app.command()
 def shell():
     """
-    🐚 **Open an interactive Python shell with Django loaded.**
+    **Open an interactive Python shell with Django loaded.**
     """
     execute_command("shell")
 
@@ -195,7 +195,7 @@ def shell():
 @misc_app.command()
 def showmigrations():
     """
-    🔍 **List migrations and their status.**
+    **List migrations and their status.**
     """
     execute_command("showmigrations")
 
@@ -203,7 +203,7 @@ def showmigrations():
 @misc_app.command()
 def clear_cache():
     """
-    🧹 **Clear the cache.**
+   **Clear the cache.**
 
     Requires caching to be set up in the Django project.
     """
@@ -214,15 +214,15 @@ def clear_cache():
 app.add_typer(
     basic_app,
     name="basic",
-    help="🏗️ Basic Django commands like creating an app service or run server and etc.",
+    help=" Basic Django commands like creating an app service or run server and etc.",
 )
-app.add_typer(database_app, name="database", help="🗄️ Database management commands.")
-app.add_typer(testing_app, name="testing", help="🐞 Testing and debugging commands.")
-app.add_typer(user_management_app, name="user", help="👤 User management commands.")
+app.add_typer(database_app, name="database", help=" Database management commands.")
+app.add_typer(testing_app, name="testing", help=" Testing and debugging commands.")
+app.add_typer(user_management_app, name="user", help=" User management commands.")
 app.add_typer(
-    static_files_app, name="static", help="📂 Static files and media commands."
+    static_files_app, name="static", help=" Static files and media commands."
 )
-app.add_typer(misc_app, name="misc", help="🔧 Miscellaneous Django commands.")
+app.add_typer(misc_app, name="misc", help=" Miscellaneous Django commands.")
 
 if __name__ == "__main__":
     app()

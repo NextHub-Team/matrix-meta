@@ -14,7 +14,7 @@ console = Console()
 def run_command(command: List[str], interactive=False):
     """Run a shell command with optional interactive mode."""
     try:
-        console.print(f"🔧 [yellow]Running command:[/yellow] {' '.join(command)}")
+        console.print(f" [yellow]Running command:[/yellow] {' '.join(command)}")
 
         if interactive:
             # Use 'with' for Popen to ensure resources are cleaned up
@@ -33,17 +33,17 @@ def run_command(command: List[str], interactive=False):
             )
             if result.stdout.strip():
                 console.print(
-                    f"✅ [green]Command output:[/green] {result.stdout.strip()}"
+                    f"[green]Command output:[/green] {result.stdout.strip()}"
                 )
             return result.stdout.strip()
 
     except subprocess.CalledProcessError as e:
-        console.print(f"❌ [red]Error running command:[/red] {' '.join(command)}")
-        console.print(f"🛑 [red]Return code:[/red] {e.returncode}")
-        console.print(f"💥 [red]Error output:[/red] {e.stderr.strip()}")
+        console.print(f" [red]Error running command:[/red] {' '.join(command)}")
+        console.print(f" [red]Return code:[/red] {e.returncode}")
+        console.print(f" [red]Error output:[/red] {e.stderr.strip()}")
         raise typer.Exit(1)
     except Exception as e:
-        console.print(f"⚠️ [red]Unexpected error:[/red] {str(e)}")
+        console.print(f"️ [red]Unexpected error:[/red] {str(e)}")
         raise typer.Exit(1)
 
     return None
@@ -51,8 +51,8 @@ def run_command(command: List[str], interactive=False):
 
 @app.command()
 def stage():
-    """📂 Stage or unstage files interactively."""
-    console.print("🕵️ [blue]Checking for changes...[/blue]")
+    """Stage or unstage files interactively."""
+    console.print(" [blue]Checking for changes...[/blue]")
     changed_files = run_command(["git", "status", "-s"]).splitlines()
 
     if not changed_files:
@@ -61,7 +61,7 @@ def stage():
 
     file_status = [(line[:2].strip(), line[3:]) for line in changed_files]
 
-    console.print("🗂️ [cyan]Select files to stage...[/cyan]")
+    console.print("️ [cyan]Select files to stage...[/cyan]")
     stage_selection = inquirer.checkbox(
         message="Select files to stage (use arrow keys and space to select, Enter to confirm):",
         choices=[
@@ -73,13 +73,13 @@ def stage():
     if stage_selection:
         for file in stage_selection:
             run_command(["git", "add", file])
-        console.print(f"✅ [green]Staged files:[/green] {', '.join(stage_selection)}")
+        console.print(f" [green]Staged files:[/green] {', '.join(stage_selection)}")
     else:
-        console.print("⚠️ [yellow]No files selected for staging.[/yellow]")
+        console.print(" [yellow]No files selected for staging.[/yellow]")
 
     staged_files = run_command(["git", "diff", "--name-only", "--cached"]).splitlines()
     if staged_files:
-        console.print("🗂️ [cyan]Select files to unstage if necessary...[/cyan]")
+        console.print("️ [cyan]Select files to unstage if necessary...[/cyan]")
         unstage_selection = inquirer.checkbox(
             message="Select files to unstage (use arrow keys and space to select, Enter to confirm):",
             choices=[
@@ -92,51 +92,51 @@ def stage():
             for file in unstage_selection:
                 run_command(["git", "reset", file])
             console.print(
-                f"✅ [green]Unstaged files:[/green] {', '.join(unstage_selection)}"
+                f" [green]Unstaged files:[/green] {', '.join(unstage_selection)}"
             )
         else:
-            console.print("⚠️ [yellow]No files selected for unstaging.[/yellow]")
+            console.print(" [yellow]No files selected for unstaging.[/yellow]")
     else:
-        console.print("⚠️ [yellow]No staged files to unstage.[/yellow]")
+        console.print(" [yellow]No staged files to unstage.[/yellow]")
 
 
 @app.command()
 def commit():
-    """📝 Create a commit using Commitizen."""
-    console.print("📝 [blue]Running Commitizen Commit...[/blue]")
+    """Create a commit using Commitizen."""
+    console.print(" [blue]Running Commitizen Commit...[/blue]")
     run_command(["poetry run cz commit"], interactive=True)
-    console.print("✅ [green]Commit completed successfully![/green]")
+    console.print(" [green]Commit completed successfully![/green]")
 
 
 @app.command()
 def push():
-    """📤 Push the latest commit."""
-    console.print("📤 [blue]Pushing to remote repository...[/blue]")
+    """Push the latest commit."""
+    console.print(" [blue]Pushing to remote repository...[/blue]")
     run_command(["git", "push"])
-    console.print("✅ [green]Push completed successfully![/green]")
+    console.print(" [green]Push completed successfully![/green]")
 
 
 @app.command()
 def pull():
-    """📥 Pull changes from the remote repository."""
-    console.print("📥 [blue]Pulling changes from remote repository...[/blue]")
+    """Pull changes from the remote repository."""
+    console.print(" [blue]Pulling changes from remote repository...[/blue]")
     result = run_command(["git", "pull"])
-    console.print("✅ [green]Pull completed![/green]")
+    console.print("[green]Pull completed![/green]")
     console.print(Markdown(f"```diff\n{result}\n```"))
 
 
 @app.command()
 def switch_branch(branch_name: str):
-    """🌿 Switch to a different branch."""
-    console.print(f"🌿 [cyan]Switching to branch '{branch_name}'...[/cyan]")
+    """Switch to a different branch."""
+    console.print(f" [cyan]Switching to branch '{branch_name}'...[/cyan]")
     run_command(["git", "checkout", branch_name])
-    console.print(f"✅ [green]Switched to branch '{branch_name}'[/green]")
+    console.print(f" [green]Switched to branch '{branch_name}'[/green]")
 
 
 @app.command()
 def list_branches():
-    """📜 List all branches."""
-    console.print("📜 [blue]Fetching branch list...[/blue]")
+    """List all branches."""
+    console.print(" [blue]Fetching branch list...[/blue]")
     branches = run_command(["git", "branch"]).splitlines()
     branch_table = Table(
         title="Branches", show_header=True, header_style="bold magenta"
@@ -145,7 +145,7 @@ def list_branches():
 
     for branch in branches:
         if branch.startswith("*"):
-            branch_table.add_row(f"🌟 [green]{branch.strip()}[/green] (current branch)")
+            branch_table.add_row(f" [green]{branch.strip()}[/green] (current branch)")
         else:
             branch_table.add_row(branch.strip())
 
@@ -154,10 +154,10 @@ def list_branches():
 
 @app.command()
 def create_branch(branch_name: str):
-    """🌱 Create and switch to a new branch."""
-    console.print(f"🌱 [cyan]Creating branch '{branch_name}'...[/cyan]")
+    """Create and switch to a new branch."""
+    console.print(f" [cyan]Creating branch '{branch_name}'...[/cyan]")
     run_command(["git", "checkout", "-b", branch_name])
-    console.print(f"✅ [green]Branch '{branch_name}' created and checked out![/green]")
+    console.print(f" [green]Branch '{branch_name}' created and checked out![/green]")
 
 
 if __name__ == "__main__":

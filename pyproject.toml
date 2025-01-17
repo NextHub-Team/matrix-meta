@@ -30,7 +30,7 @@ emoji = "^2.14.0"
 inquirerpy = "^0.3.4"
 
 
-[tool.poetry.group.dev.dependencies]
+[tool.poetry.group.dev.dependencies]    #development
 commitizen = "^4.0.0"
 pre-commit = "^4.0.1"
 pylint-django = "^2.6.1"
