@@ -74,13 +74,13 @@ def startapp(appname: str):
 
 
 @basic_app.command()
-def runserver(port: int = 8000):
+def runserver(host:str="0.0.0.0",port: int = 8000):
     """
     **Start the development server.**
 
     Default port is 8000. Pass a custom port if needed.
     """
-    execute_command("runserver", [str(port)])
+    execute_command("runserver", [f"{host}:{port}"])
 
 
 @basic_app.command()

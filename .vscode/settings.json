@@ -1,3 +1,4 @@
 {
-  "docwriter.style": "NumPy"
+  "docwriter.style": "NumPy",
+  "cSpell.words": ["psycopg", "pylint", "Taherkhani"]
 }
