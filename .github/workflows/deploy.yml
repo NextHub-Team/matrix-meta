@@ -1,0 +1,48 @@
+name: deploy Django decker compose on server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  docker-compose:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Build and Run Tests with Docker Compose
+        env:
+          REDIS_URL: ${{ secrets.REDIS_URL }}
+          POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
+          POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+        run: |
+          docker-compose -f docker-compose-web.yml up --build -d
+
+      - name: Stop Docker Compose without removing volumes
+        run: |
+          docker-compose down
+
+#      - name: Deploy to Production Server
+#        if: success()
+#        uses: appleboy/ssh-action@v0.1.6
+#        with:
+#          host: ${{ secrets.SERVER_HOST }}
+#          username: ${{ secrets.SERVER_USER }}
+#          key: ${{ secrets.SERVER_SSH_KEY }}
+#          script: |
+#            cd /path/to/your/project
+#            echo "POSTGRES_URL=${{ secrets.PROD_POSTGRES_URL }}" > .env
+#            echo "REDIS_URL=${{ secrets.PROD_REDIS_URL }}" >> .env
+#            echo "POSTGRES_USER=${{ secrets.PROD_POSTGRES_USER }}" >> .env
+#            echo "POSTGRES_PASSWORD=${{ secrets.PROD_POSTGRES_PASSWORD }}" >> .env
+#            echo "POSTGRES_DB=${{ secrets.PROD_POSTGRES_DB }}" >> .env
+#            docker-compose down
+#            docker-compose pull
+#            docker-compose up --build -d
