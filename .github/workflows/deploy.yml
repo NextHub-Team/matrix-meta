@@ -23,11 +23,11 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
         run: |
-          docker compose -f ./docker/docker-compose-web.yml up --build -d
+          docker-compose -f ./docker/docker-compose-web.yml up --build -d
 
       - name: Stop Docker Compose without removing volumes
         run: |
-          docker compose down
+          docker-compose down --volumes false
 
 #      - name: Deploy to Production Server
 #        if: success()
