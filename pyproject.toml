@@ -28,6 +28,7 @@ cleo = ">=2.1.0,<3.0.0"
 poetry = ">=2.0.1,<3.0.0"
 emoji = ">=2.14.0,<3.0.0"
 inquirerpy = ">=0.3.4,<1.0.0"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.scripts]
