@@ -1,4 +1,4 @@
-name: deploy Django decker compose on server
+name: deploy Django Docker Compose on server
 
 on:
   push:
@@ -8,6 +8,7 @@ on:
 jobs:
   docker-compose:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -15,10 +16,18 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
+      - name: Cache Docker layers (optional)
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-docker-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Build and Run Tests with Docker Compose
         env:
           REDIS_URL: ${{ secrets.REDIS_URL }}
-          POSTGRES_HOST: ${{secrets.POSTGRES_HOST}}
+          POSTGRES_HOST: ${{ secrets.POSTGRES_HOST }}
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
@@ -27,7 +36,8 @@ jobs:
 
       - name: Stop Docker Compose without removing volumes
         run: |
-          docker-compose down --volumes false
+          docker-compose down
+
 
 #      - name: Deploy to Production Server
 #        if: success()
