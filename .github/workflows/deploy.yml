@@ -43,7 +43,7 @@ jobs:
 
       - name: Stop Docker Compose without removing volumes
         run: |
-          docker-compose down
+          docker-compose -f ./docker/docker-compose-web.yml down
 
 
 #      - name: Deploy to Production Server
