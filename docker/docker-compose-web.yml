@@ -11,7 +11,7 @@ services:
       - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:5432/${POSTGRES_DB}
       - REDIS_URL=${REDIS_URL}
     env_file:
-      - ../.env
+      - .env
     depends_on:
       - postgres
       - redis
@@ -30,7 +30,7 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
-      - "5432:5432"
+      - "5485:5432"
     networks:
       - network-matrix
 
@@ -39,7 +39,7 @@ services:
     hostname: redis-server
     container_name: redis-chat
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - redis_data:/data
     networks:

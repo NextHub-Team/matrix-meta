@@ -23,19 +23,19 @@ jobs:
 
       - name: Create .env file with secrets
         run: |
-          echo "REDIS_URL=${{ secrets.REDIS_URL }}" > .env
-          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> .env
-          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> .env
-          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> .env
-          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> .env
+          echo "REDIS_URL=${{ secrets.REDIS_URL }}" > docker/.env
+          echo "POSTGRES_HOST=${{ secrets.POSTGRES_HOST }}" >> docker/.env
+          echo "POSTGRES_USER=${{ secrets.POSTGRES_USER }}" >> docker/.env
+          echo "POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}" >> docker/.env
+          echo "POSTGRES_DB=${{ secrets.POSTGRES_DB }}" >> docker/.env
 
       - name: Build and Run Tests with Docker Compose
         run: |
-          docker-compose -f ./docker/docker-compose-web.yml up --build -d
+          docker compose -f ./docker/docker-compose-web.yml up --build -d
 
       - name: Stop Docker Compose without removing volumes
         run: |
-          docker-compose -f ./docker/docker-compose-web.yml down
+          docker compose -f ./docker/docker-compose-web.yml down
 
   deploy-on-server:
     name: Deploy to Production
@@ -53,9 +53,9 @@ jobs:
             set -e
             echo "Starting deployment..."
             cd ${{ secrets.PROJECT_PATH }}
-            docker-compose -f docker/docker-compose-web.yml down
+            docker compose -f docker/docker-compose-web.yml down
             
             # Pull latest changes and restart services
             git pull
-            docker-compose -f docker/docker-compose-web.yml up --build -d
+            docker compose -f docker/docker-compose-web.yml up --build -d
             echo "Deployment completed successfully."
