@@ -39,7 +39,7 @@ jobs:
 
   deploy-on-server:
     name: Deploy to Production
-    needs: test
+    needs: test-docker-compose
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to Production Server
