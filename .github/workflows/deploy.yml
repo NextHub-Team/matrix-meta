@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  test docker-compose:
+  test-docker-compose:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,7 +37,7 @@ jobs:
         run: |
           docker-compose -f ./docker/docker-compose-web.yml down
 
-  deploy on server:
+  deploy-on-server:
     name: Deploy to Production
     needs: test
     runs-on: ubuntu-latest
