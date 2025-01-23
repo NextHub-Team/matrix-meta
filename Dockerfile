@@ -29,11 +29,11 @@ EXPOSE 8000
 
 # Wait for PostgreSQL to be ready (you can adjust the host and port as needed)
 RUN apt-get update && apt-get install -y --no-install-recommends netcat-openbsd
-COPY docker/wait-for-it.sh /usr/local/bin/wait-for-it
+COPY ./wait-for-it.sh /usr/local/bin/wait-for-it
 RUN chmod +x /usr/local/bin/wait-for-it
 
 # Add entrypoint script to handle migrations
-COPY docker/entrypoint.sh /entrypoint.sh
+COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 # Run entrypoint script
