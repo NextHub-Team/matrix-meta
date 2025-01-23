@@ -71,12 +71,12 @@ jobs:
             fi
             
             git pull origin main
-            
+
             docker compose -f docker-compose.dev.yml up --build -d
             echo "Deployment completed successfully."
 
       - name: Check Web Application Connectivity on server
         run: |
           # Check if the web application is accessible via domain
-          curl -f https://${{ secrets.SERVER_HOST }} || { echo "Web service is unreachable"; exit 1; }
+          curl -f http://${{ secrets.SERVER_IP }}:8000 || { echo "Web service is unreachable"; exit 1; }
           echo "Web service is reachable!"
