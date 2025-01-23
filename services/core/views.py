@@ -13,3 +13,7 @@ def sample_api(request):
     else:
         data = cached_data
     return JsonResponse(data)
+
+
+def health_check(request):
+    return JsonResponse({"healthy": True})
