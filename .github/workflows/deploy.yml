@@ -63,10 +63,15 @@ jobs:
             set -e
             echo "Starting deployment..."
             cd ${{ secrets.PROJECT_PATH }}
-            docker compose -f docker-compose.dev.yml down 
+
+            if [ -f "docker-compose.dev.yml" ]; then
+                docker compose -f docker-compose.dev.yml down
+            else
+                echo "docker-compose.dev.yml not found, skipping down command."
+            fi
             
-            # Pull latest changes and restart services
             git pull origin main
+            
             docker compose -f docker-compose.dev.yml up --build -d
             echo "Deployment completed successfully."
 
